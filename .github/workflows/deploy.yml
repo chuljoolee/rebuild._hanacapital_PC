@@ -29,9 +29,16 @@ jobs:
         env:
           NODE_ENV: production
 
-      # 404.html 파일 생성 (GitHub Pages SPA 지원용)
       - name: Create 404.html
         run: cp dist/app/index.html dist/app/404.html
+
+      # ✅ GITHUB_TOKEN 테스트 출력
+      - name: Check GITHUB_TOKEN
+        run: |
+          echo "GitHub Token First 5 Chars: ${GITHUB_TOKEN:0:5}"
+          echo "GitHub Token Length: ${#GITHUB_TOKEN}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
@@ -39,5 +46,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/app
-          # 커스텀 도메인이 있는 경우 아래 줄의 주석을 제거하고 설정
-          # cname: your-custom-domain.com
