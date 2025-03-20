@@ -1,0 +1,11 @@
+[build]
+  command = "yarn build:github"  # GitHub Actions와 동일한 빌드 명령어
+  publish = "dist/app"  # Netlify에서 배포할 디렉터리
+
+[context.production]
+  environment = { NODE_ENV = "production" }
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
