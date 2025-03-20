@@ -32,23 +32,17 @@ jobs:
       - name: Create 404.html
         run: cp dist/app/index.html dist/app/404.html
 
-      # ✅ GITHUB_TOKEN 테스트 출력 !!
-      # - name: Check GITHUB_TOKEN
-      #   run: |
-      #     echo "GitHub Token First 5 Chars: ${GITHUB_TOKEN:0:5}"
-      #     echo "GitHub Token Length: ${#GITHUB_TOKEN}"
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # ✅ GITHUB_TOKEN 테스트 출력
+      - name: Check GITHUB_TOKEN
+        run: |
+          echo "GitHub Token First 5 Chars: ${GITHUB_TOKEN:0:5}"
+          echo "GitHub Token Length: ${#GITHUB_TOKEN}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      #- name: Deploy to GitHub Pages
-      #  uses: peaceiris/actions-gh-pages@v3
-      #  if: github.ref == 'refs/heads/main'
-      #  with:
-      #    github_token: ${{ secrets.GITHUB_TOKEN }}
-      #    publish_dir: ./dist/app
-      
       - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        publish_dir: ./dist/app
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/app
